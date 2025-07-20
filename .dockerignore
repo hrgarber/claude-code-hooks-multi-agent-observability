@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+.bun/
+
+# Git
+.git/
+.gitignore
+
+# Development files
+*.log
+.env
+.env.local
+.DS_Store
+
+# Build outputs
+dist/
+build/
+*.build/
+
+# SQLite data (will be mounted as volume)
+data/
+*.db
+*.sqlite
+
+# IDE
+.vscode/
+.idea/
+
+# Documentation
+*.md
+docs/
+images/
+
+# Scripts that aren't needed in container
+scripts/
+
+# Test files
+test/
+tests/
+*.test.*
+*.spec.*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Memory bank
+memory-bank/

@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  claude-observe:
+    build: .
+    container_name: claude-observe
+    env_file:
+      - .env
+    ports:
+      - "${OBSERVABILITY_SERVER_PORT:-4000}:4000"
+      - "${OBSERVABILITY_CLIENT_PORT:-5173}:5173"
+    volumes:
+      # Persist SQLite database
+      - ./data:/app/data
+      # Mount hooks directory to access environment variables
+      - ./.claude/hooks:/app/.claude/hooks:ro
+      # For development - mount source code
+      # - ./apps:/app/apps
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - VITE_MAX_EVENTS_TO_DISPLAY=${VITE_MAX_EVENTS_TO_DISPLAY:-100}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - ENGINEER_NAME=${ENGINEER_NAME}
