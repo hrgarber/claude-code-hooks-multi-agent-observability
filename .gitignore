@@ -246,3 +246,6 @@ claude-output.json
 .claude/commands/feature.md
 
 specs/
+
+# Memory bank (local context)
+memory-bank/
