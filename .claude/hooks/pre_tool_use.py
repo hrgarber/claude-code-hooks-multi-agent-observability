@@ -1,6 +1,9 @@
 #!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.8"
+# dependencies = [
+#     "requests",
+# ]
 # ///
 
 import json
@@ -8,6 +11,8 @@ import sys
 import re
 from pathlib import Path
 from utils.constants import ensure_session_log_dir
+import os
+import requests
 
 def is_dangerous_rm_command(command):
     """
@@ -128,6 +133,17 @@ def main():
         # Write back to file with formatting
         with open(log_path, 'w') as f:
             json.dump(log_data, f, indent=2)
+        
+        # Send to observability server
+        try:
+            requests.post("http://localhost:4000/events", json={
+                "source_app": os.path.basename(os.getcwd()),
+                "session_id": session_id,
+                "hook_event_type": "pre_tool_use",
+                "payload": input_data
+            }, timeout=1)
+        except:
+            pass  # Never interrupt Claude
         
         sys.exit(0)
         

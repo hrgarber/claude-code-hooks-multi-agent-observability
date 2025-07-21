@@ -3,6 +3,7 @@
 # requires-python = ">=3.11"
 # dependencies = [
 #     "python-dotenv",
+#     "requests",
 # ]
 # ///
 
@@ -13,6 +14,7 @@ import sys
 from pathlib import Path
 from datetime import datetime
 from utils.constants import ensure_session_log_dir
+import requests
 
 try:
     from dotenv import load_dotenv
@@ -43,6 +45,17 @@ def log_user_prompt(session_id, input_data):
     # Write back to file with formatting
     with open(log_file, 'w') as f:
         json.dump(log_data, f, indent=2)
+    
+    # Send to observability server
+    try:
+        requests.post("http://localhost:4000/events", json={
+            "source_app": os.path.basename(os.getcwd()),
+            "session_id": session_id,
+            "hook_event_type": "user_prompt_submit",
+            "payload": input_data
+        }, timeout=1)
+    except:
+        pass  # Never interrupt Claude
 
 
 def validate_prompt(prompt):
