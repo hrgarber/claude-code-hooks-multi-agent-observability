@@ -14,6 +14,11 @@ import random
 import subprocess
 from pathlib import Path
 from datetime import datetime
+
+# Get the directory where this hook is located
+hook_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, hook_dir)
+
 from utils.constants import ensure_session_log_dir
 
 try:

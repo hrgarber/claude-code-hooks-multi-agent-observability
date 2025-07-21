@@ -9,10 +9,15 @@
 import json
 import sys
 import re
-from pathlib import Path
-from utils.constants import ensure_session_log_dir
 import os
 import requests
+from pathlib import Path
+
+# Get the directory where this hook is located
+hook_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, hook_dir)
+
+from utils.constants import ensure_session_log_dir
 
 def is_dangerous_rm_command(command):
     """

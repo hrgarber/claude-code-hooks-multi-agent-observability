@@ -10,7 +10,7 @@ from pathlib import Path
 def test_notification_hook():
     """Test the notification hook with and without TTS"""
     
-    hook_path = Path(__file__).parent / '.claude' / 'hooks' / 'notification.py'
+    hook_path = Path(__file__).parent.parent / '.claude' / 'hooks' / 'notification.py'
     
     # Test data that should trigger notification
     test_data = {
