@@ -51,15 +51,15 @@ That's it! Events will automatically flow from all projects to your dashboard.
 
 ## 📊 Current Implementation Status
 
-### ✅ Working (Sending Events)
+### ✅ All Hooks Now Integrated!
 - **pre_tool_use.py** - Captures tool usage before execution
 - **user_prompt_submit.py** - Captures user prompts
-
-### 🚧 Local Only (Not Yet Integrated)
 - **post_tool_use.py** - Tool results logging
 - **notification.py** - TTS notifications
 - **stop.py** - Session completion
 - **subagent_stop.py** - Subagent completion
+
+All hooks now send events to the observability server using the one-line integration method.
 
 ## ⚙️ Configuration
 
@@ -172,6 +172,7 @@ python tests/test-tts-directly.py
 ```
 
 ## 🚧 Future Improvements
-- Integrate remaining hooks (post_tool_use, stop, etc.)
 - Add authentication for multi-user scenarios
 - Consider cloud deployment for team sharing
+- Add event filtering and search in the dashboard
+- Implement event export functionality

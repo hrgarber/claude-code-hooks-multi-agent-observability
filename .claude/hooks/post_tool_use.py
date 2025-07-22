@@ -1,6 +1,9 @@
 #!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.8"
+# dependencies = [
+#     "requests",
+# ]
 # ///
 
 import json
@@ -13,6 +16,7 @@ hook_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, hook_dir)
 
 from utils.constants import ensure_session_log_dir
+from hook_utils import enable_observability; enable_observability(__file__)
 
 def main():
     try:

@@ -3,6 +3,7 @@
 # requires-python = ">=3.11"
 # dependencies = [
 #     "python-dotenv",
+#     "requests",
 # ]
 # ///
 
@@ -19,6 +20,7 @@ hook_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, hook_dir)
 
 from utils.constants import ensure_session_log_dir
+from hook_utils import enable_observability; enable_observability(__file__)
 
 try:
     from dotenv import load_dotenv
